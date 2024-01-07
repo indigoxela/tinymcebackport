@@ -1,20 +1,24 @@
 # TinyMCE backport
 
-Integrates the most recent [TinyMCE](https://www.tiny.cloud/) as alternative
- WYSIWYG editor for Drupal 7.
+Integrates the most recent and supported [TinyMCE](https://www.tiny.cloud/)
+ as alternative WYSIWYG editor for Drupal 7.
 
-Fun fact: this is a backport from Backdrop CMS, not from Drupal 10.
+Fun fact: this is a backport from [Backdrop CMS](https://backdropcms.org/),
+ not from Drupal 10.
+
+It's a standalone module, unrelated to the existing, recently revived TinyMCE
+ module, and also unrelated to the Wysiwyg module.
 
 ## Installation
 
-The library (TinyMCE 6.8.x) ships with this module, no need for external
-code.
+The library (TinyMCE 6.8.x) ships with this module, no need for extra
+downloads nor the libraries module.
 
 - Install this module using the zipfile
 - Disable CKEditor 4 on profiles for text formats on admin/config/content/ckeditor
 
-If filtered_html is the text format you need an editor for, this module
-should already do its job from that point.
+If filtered_html is the text format you need the editor for, this module
+should already do its job at that point.
 If IMCE is installed, the image plugin will use that for picking inline
 images. But IMCE is no dependency.
 
@@ -24,7 +28,8 @@ done via API in code. See tinymcebackport.api.php for some basic examples.
 ## Maintenance
 
 Currently this is more like a proof of concept module. Fully functional, but
-sparse (no) admin UI. Taking over maintainership is possible and encouraged.
+without any admin UI (the maintainer doesn't need any ;-) ).
+Forking is possible – just go for it.
 
 ## Credits
 
