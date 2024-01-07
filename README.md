@@ -7,6 +7,9 @@ Fun fact: this is a backport from Backdrop CMS, not from Drupal 10.
 
 ## Installation
 
+The library (TinyMCE 6.8.x) ships with this module, no need for external
+code.
+
 - Install this module using the zipfile
 - Disable CKEditor 4 on profiles for text formats on admin/config/content/ckeditor
 
@@ -16,7 +19,7 @@ If IMCE is installed, the image plugin will use that for picking inline
 images. But IMCE is no dependency.
 
 Note that there's absolutely no admin interface. All adaptions have to be
-done via API. See tinymcebackport.api.php for some basic examples.
+done via API in code. See tinymcebackport.api.php for some basic examples.
 
 ## Maintenance
 
