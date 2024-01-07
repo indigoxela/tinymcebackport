@@ -12,7 +12,7 @@
  * @param string $format
  *   Text format name.
  */
-function hook_tinymcebackport_options_alter(&$options, $format) {
+function hook_tinymcebackport_options_alter(array &$options, $format) {
   // Turn off the spellckeck provided by the browser.
   $options['browser_spellcheck'] = FALSE;
   // Add styles applied to editor content.
@@ -34,6 +34,6 @@ function hook_tinymcebackport_options_alter(&$options, $format) {
  * @param array $enabled_formats
  *   Simple array of strings, per default "filtered_html" is the only item.
  */
-function hook_tinymcebackport_enabled_formats_alter(&$enabled_formats) {
+function hook_tinymcebackport_enabled_formats_alter(array &$enabled_formats) {
   $enabled_formats[] = 'full_html';
 }

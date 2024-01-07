@@ -30,7 +30,7 @@ function tinymcebackport_element_info_alter(&$types) {
 /**
  * Custom pre_render callback.
  */
-function _tinymcebackport_pre_render_text_format($element) {
+function _tinymcebackport_pre_render_text_format(array $element) {
   if (!isset($element['#format'])) {
     return $element;
   }
