@@ -59,9 +59,9 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     ),
   );
 
-  // Based on user/role.
+  // Based on user ID or role. Same format, different setup.
   global $user;
-  if (!in_array('administrator', $user->roles)) {
+  if (!$user->uid) {
     // Mini toolbar only, different order.
     $options['toolbar'] = 'styles bold italic blockquote bullist numlist link unlink';
     // Restrict content on input, pasted markup will get cleaned up accordingly.
