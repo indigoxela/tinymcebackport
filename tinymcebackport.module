@@ -1,0 +1,155 @@
+<?php
+/**
+ * @file
+ * Experiment to provide a recent TinyMCE for D7.
+ */
+
+/**
+ * Implements hook_library().
+ */
+function tinymcebackport_library() {
+  $lib_path = drupal_get_path('module', 'tinymcebackport') . '/libraries/tinymce/js/tinymce/tinymce.min.js';
+  $libraries['bp.tinymce'] = array(
+    'title' => 'TinyMCE',
+    'website' => 'https://www.tiny.cloud/',
+    'version' => '6.8.2',
+    'js' => array(
+      $lib_path => array('group' => JS_LIBRARY, 'preprocess' => FALSE),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function tinymcebackport_element_info_alter(&$types) {
+  $types['text_format']['#pre_render'][] = '_tinymcebackport_pre_render_text_format';
+}
+
+/**
+ * Custom pre_render callback.
+ */
+function _tinymcebackport_pre_render_text_format($element) {
+  if (!isset($element['#format'])) {
+    return $element;
+  }
+  // Ignore summary and stuff.
+  if (!isset($element['value'])) {
+    return $element;
+  }
+
+  // Always get rid of grippie.
+  $element['value']['#resizable'] = FALSE;
+
+  $element['#attached']['library'][] = array('tinymcebackport', 'bp.tinymce');
+  $js_path = drupal_get_path('module', 'tinymcebackport') . '/js/tinymcebackport.js';
+  $element['#attached']['js'][$js_path] = array();
+
+  $js_settings = array(
+    'tinymcebackport' => array(
+      $element['value']['#id'] => array(
+        'idSelector' => $element['format']['#id'],
+        'options' => _tinymcebackport_get_default_options($element['#format']),
+        'enabled_formats' => _tinymcebackport_get_enabled_formats(),
+      ),
+    ),
+  );
+  $element['#attached']['js'][] = array(
+    'data' => $js_settings,
+    'type' => 'setting',
+  );
+
+  return $element;
+}
+
+/**
+ * Custom callback for default editor options.
+ */
+function _tinymcebackport_get_default_options($format) {
+  global $language;
+  $options = array(
+    'branding' => FALSE,
+    'promotion' => FALSE,
+    'language' => $language->language,
+    'browser_spellcheck' => TRUE,
+    'entity_encoding' => 'raw',
+    'convert_urls' => FALSE,
+    'paste_data_images' => FALSE,
+    'min_height' => 300,
+    'menubar' => FALSE,
+    'plugins' => 'lists link image fullscreen autoresize',
+    'toolbar' => 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink image fullscreen',
+  );
+  if (module_exists('imce')) {
+    $path = base_path() . drupal_get_path('module', 'tinymcebackport');
+    $options['external_plugins'] = array(
+      'imce' => $path . '/plugins/imce/plugin.js',
+    );
+    $options['plugins'] = 'lists link imce fullscreen autoresize';
+    $options['toolbar'] = 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink imce fullscreen';
+    $options['imceUrl'] = base_path() . 'imce?app=tinymce|sendto@tinymceImceResponseHandler';
+    $options['content_css'] = array(
+      $path . '/css/tinymcebackport-content.css',
+    );
+  }
+  $options['formats'] = _tinymcebackport_get_format_settings();
+
+  // Allow modules to modify the options.
+  drupal_alter('tinymcebackport_options', $options, $format);
+
+  return $options;
+}
+
+/**
+ * Helper function to return some format settins to prevent inline styles.
+ */
+function _tinymcebackport_get_format_settings() {
+  $formats = array();
+  // Text align with classes only. The theme's supposed to provide styles.
+  $align_selector = 'p,h1,h2,h3,h4,h5,h6,div';
+  $formats['alignleft'] = array(
+    array(
+      'selector' => $align_selector,
+      'classes' => 'text-align-left',
+    ),
+  );
+  $formats['aligncenter'] = array(
+    array(
+      'selector' => $align_selector,
+      'classes' => 'text-align-center',
+    ),
+  );
+  $formats['alignright'] = array(
+    array(
+      'selector' => $align_selector,
+      'classes' => 'text-align-right',
+    ),
+  );
+  $formats['alignjustify'] = array(
+    array(
+      'selector' => $align_selector,
+      'classes' => 'text-align-justify',
+    ),
+  );
+  // Set tag as default for underline (instead of style).
+  $formats['underline'] = array(
+    array(
+      'inline' => 'u',
+    ),
+  );
+  return $formats;
+
+}
+
+/**
+ * Callback to get formats, this editor's enabled for.
+ */
+function _tinymcebackport_get_enabled_formats() {
+  $enabled = array('filtered_html');
+
+  // Allow modules to modify enabled formats.
+  drupal_alter('tinymcebackport_enabled_formats', $enabled);
+  // Reset keys, so js doesn't choke.
+  return array_values($enabled);
+}
