@@ -10,34 +10,28 @@ const imageTypes = ['jpeg', 'jpg', 'gif', 'png', 'webp'];
 tinymce.PluginManager.add('imce', function(editor, url) {
   editor.on('PreInit', function () {
     editor.options.register('imceUrl', { processor: 'string' });
-    let styleformats = editor.options.get('style_formats');
 
     const imceFilePicker = function (callback, value, meta) {
       editor.windowManager.openUrl({
         title: 'File picker',
         url: editor.options.get('imceUrl')
       });
+      // Let TinyMCE communicate with IMCE.
       window.addEventListener('message', function (event) {
         if (event.origin !== window.location.origin) {
           return;
         }
         if (meta.filetype == 'image') {
           if (!imageTypes.includes(event.data.ext)) {
-            editor.notificationManager.open({
-              text: 'Not an image',
-              type: 'error',
-              icon: 'warn'
-            });
-            editor.windowManager.close();
+            // Can't show a message as we're still in a dialog.
             return;
           }
           callback(event.data.url, {
             width: event.data.width,
             height: event.data.height
           });
-          return;
         }
-        if (meta.filetype == 'file') {
+        else if (meta.filetype == 'file') {
           callback(event.data.url, { text: event.data.name });
         }
       }, false);
