@@ -79,20 +79,21 @@ function _tinymcebackport_get_default_options($format) {
     'images_file_types' => 'jpeg,jpg,png,gif,webp',
     'min_height' => 300,
     'menubar' => FALSE,
-    'plugins' => 'lists link image fullscreen autoresize',
+    'plugins' => 'lists link image fullscreen autoresize imgalign',
     'toolbar' => 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink image fullscreen',
   );
+
+  $path = base_path() . drupal_get_path('module', 'tinymcebackport');
+  $options['content_css'] = array(
+    $path . '/css/tinymcebackport-content.css',
+  );
+  $options['external_plugins'] = array(
+    'imgalign' => $path . '/plugins/imgalign/plugin.js',
+  );
   if (module_exists('imce')) {
-    $path = base_path() . drupal_get_path('module', 'tinymcebackport');
-    $options['external_plugins'] = array(
-      'imce' => $path . '/plugins/imce/plugin.js',
-    );
-    $options['plugins'] = 'lists link imce fullscreen autoresize';
-    $options['toolbar'] = 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink imce fullscreen';
+    $options['external_plugins']['imce'] = $path . '/plugins/imce/plugin.js';
+    $options['plugins'] .= ' imce';
     $options['imceUrl'] = base_path() . 'imce?app=tinymce|sendto@tinymceImceResponseHandler';
-    $options['content_css'] = array(
-      $path . '/css/tinymcebackport-content.css',
-    );
   }
   $options['formats'] = _tinymcebackport_get_format_settings();
 
