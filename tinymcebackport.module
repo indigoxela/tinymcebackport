@@ -79,8 +79,8 @@ function _tinymcebackport_get_default_options($format) {
     'images_file_types' => 'jpeg,jpg,png,gif,webp',
     'min_height' => 300,
     'menubar' => FALSE,
-    'plugins' => 'lists link image fullscreen autoresize imgalign',
-    'toolbar' => 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink image fullscreen',
+    'plugins' => 'lists link image autoresize imgalign',
+    'toolbar' => 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink image removeformat',
   );
 
   $path = base_path() . drupal_get_path('module', 'tinymcebackport');
