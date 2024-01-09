@@ -9,17 +9,19 @@ img {
   max-width: 100%;
   height: auto;
 }
-.img-left {
-  float: left;
-  margin: .5rem 1rem .5rem 0;
-}
-.img-right {
-  float: right;
-  margin: .5rem 0 .5rem 1rem;
-}
 .img-center {
   display: block;
   margin: .5rem auto;
+}
+@media (min-width: 34em) {
+  .img-left {
+    float: left;
+    margin: .5rem 1rem .5rem 0;
+  }
+  .img-right {
+    float: right;
+    margin: .5rem 0 .5rem 1rem;
+  }
 }
 /**
  * Text alignment classes.
