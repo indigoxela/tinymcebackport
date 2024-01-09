@@ -1,6 +1,6 @@
 /**
  * @file
- * TinyMCE IMCE file picker  plugin.
+ * TinyMCE IMCE file picker plugin.
  */
 
 "use strict";

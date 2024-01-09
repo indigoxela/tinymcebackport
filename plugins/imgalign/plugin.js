@@ -54,7 +54,7 @@
         editor.ui.registry.addIcon(name, icons[name]);
       }
       // Firefox and floated images. This has a side effect, but is crucial to
-      // be able to delete the selecte image by keyboard.
+      // be able to delete the selected image by keyboard.
       editor.on('ObjectSelected', function (obj) {
         if (obj.target.nodeName != 'IMG') {
           return;
