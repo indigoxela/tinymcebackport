@@ -12,10 +12,8 @@ tinymce.PluginManager.add('imce', function(editor, url) {
     editor.options.register('imceUrl', { processor: 'string' });
 
     const imceFilePicker = function (callback, value, meta) {
-      editor.windowManager.openUrl({
-        title: 'File picker',
-        url: editor.options.get('imceUrl')
-      });
+      // Controller to remove event listener. Prevent multiple events attached.
+      const controller = new AbortController();
       // Let TinyMCE communicate with IMCE.
       window.addEventListener('message', function (event) {
         if (event.origin !== window.location.origin) {
@@ -23,7 +21,8 @@ tinymce.PluginManager.add('imce', function(editor, url) {
         }
         if (meta.filetype == 'image') {
           if (!imageTypes.includes(event.data.ext)) {
-            // Can't show a message as we're still in a dialog.
+            // Can't show a message as we're still in a dialog, message would
+            // be below.
             return;
           }
           callback(event.data.url, {
@@ -34,7 +33,18 @@ tinymce.PluginManager.add('imce', function(editor, url) {
         else if (meta.filetype == 'file') {
           callback(event.data.url, { text: event.data.name });
         }
-      }, false);
+        // Job done, remove listener.
+        controller.abort();
+      }, { signal: controller.signal }, false);
+
+      // Open a TinyMCE dialog with IMCE.
+      editor.windowManager.openUrl({
+        title: 'File picker',
+        url: editor.options.get('imceUrl'),
+        onCancel: function (api) {
+          controller.abort();
+        }
+      });
     }
     editor.options.set('file_picker_callback', imceFilePicker);
   });
