@@ -59,12 +59,11 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     ),
   );
 
-  // Based on user ID or role. Same format, different setup.
+  // Based on user ID or role. Same text format, different setup.
   global $user;
   if (!$user->uid) {
-    // Mini toolbar only, different order.
-    $options['toolbar'] = 'styles bold italic blockquote bullist numlist link unlink';
     // Restrict content on input, pasted markup will get cleaned up accordingly.
+    // Use this, if you can't trust user input.
     // @see https://www.tiny.cloud/docs/tinymce/latest/content-filtering/#valid_elements
     $options['valid_elements'] = '@[class],a[!href],em,strong,cite,blockquote,ul,ol,li,h3,pre,#p,-span';
   }
