@@ -21,10 +21,12 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
   if ($format == 'filterd_html') {
     // Also load the table plugin.
     // Available plugins, that ship with this install:
+    // @code
     // accordion advlist anchor autolink autoresize autosave charmap code
     // codesample directionality emoticons fullscreen help image importcss
     // insertdatetime link lists media nonbreaking pagebreak preview quickbars
     // save searchreplace table template visualblocks visualchars wordcount
+    // @endcode
     $options['plugins'] .= ' table';
     // Overhaul toolbar.
     $options['toolbar'] = 'undo redo | styles | bold italic bullist numlist link unlink';
