@@ -1,6 +1,6 @@
 /**
  * @file
- * TinyMCE IMCE plugin.
+ * TinyMCE image align plugin.
  */
 (function () {
 
