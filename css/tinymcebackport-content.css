@@ -29,12 +29,15 @@ img {
 .text-align-left {
   text-align: left;
 }
+.rteright,
 .text-align-right {
   text-align: right;
 }
+.rtecenter,
 .text-align-center {
   text-align: center;
 }
+.rtejustify,
 .text-align-justify {
   text-align: justify;
 }
