@@ -67,6 +67,11 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
   // Based on user ID or role. Same text format, different setup.
   global $user;
   if (!$user->uid) {
+    // No imce file or image browser for anonymous. They can still link external
+    // images with the "image" plugin.
+    $options['plugins'] = 'lists link image imgalign autoresize';
+    unset($options['external_plugins']['imce']);
+
     // Restrict content on input, pasted markup will get cleaned up accordingly.
     // Use this, if you can't trust user input.
     // @see https://www.tiny.cloud/docs/tinymce/latest/content-filtering/#valid_elements
