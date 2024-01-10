@@ -34,13 +34,13 @@
    */
   const getImageAlign = function (node) {
     if (node.classList.length) {
-      if (node.classList.contains('img-left')) {
+      if (node.classList.contains('image-left')) {
         return 'left';
       }
-      if (node.classList.contains('img-center')) {
+      if (node.classList.contains('image-center')) {
         return 'center';
       }
-      if (node.classList.contains('img-right')) {
+      if (node.classList.contains('image-right')) {
         return 'right';
       }
     }
@@ -48,8 +48,15 @@
   }
 
   tinymce.PluginManager.add('imgalign', function(editor, url) {
-    // Register icons
+    // Register removeformat, icons, fix Firefox quirk with images.
     editor.on('PreInit', function () {
+      // Let the "removeformats" button also remove image alignment and styles.
+      let imgFormatRemove = {
+        selector: 'img',
+        attributes: ['style', 'class']
+      }
+      editor.formatter.get('removeformat').push(imgFormatRemove);
+
       for (let name in icons) {
         editor.ui.registry.addIcon(name, icons[name]);
       }
@@ -88,17 +95,17 @@
       },
       onItemAction: function (api, value) {
         let img = editor.selection.getNode();
-        if (img.classList.contains('img-left')) {
-          img.classList.remove('img-left');
+        if (img.classList.contains('image-left')) {
+          img.classList.remove('image-left');
         }
-        if (img.classList.contains('img-right')) {
-          img.classList.remove('img-right');
+        if (img.classList.contains('image-right')) {
+          img.classList.remove('image-right');
         }
-        if (img.classList.contains('img-center')) {
-          img.classList.remove('img-center');
+        if (img.classList.contains('image-center')) {
+          img.classList.remove('image-center');
         }
         if (value !== 'none') {
-          img.classList.add('img-' + value);
+          img.classList.add('image-' + value);
         }
         editor.nodeChanged();
         // This fixes a side effect of the workaround for Firefox.

@@ -9,16 +9,16 @@ img {
   max-width: 100%;
   height: auto;
 }
-.img-center {
+.image-center {
   display: block;
   margin: .5rem auto;
 }
 @media (min-width: 34em) {
-  .img-left {
+  .image-left {
     float: left;
     margin: .5rem 1rem .5rem 0;
   }
-  .img-right {
+  .image-right {
     float: right;
     margin: .5rem 0 .5rem 1rem;
   }
