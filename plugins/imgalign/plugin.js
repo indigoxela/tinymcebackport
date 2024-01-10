@@ -34,13 +34,14 @@
    */
   const getImageAlign = function (node) {
     if (node.classList.length) {
-      if (node.classList.contains('image-left')) {
+      let classes = tinymce.activeEditor.options.get('image_align_classes');
+      if (node.classList.contains(classes.left)) {
         return 'left';
       }
-      if (node.classList.contains('image-center')) {
+      if (node.classList.contains(classes.center)) {
         return 'center';
       }
-      if (node.classList.contains('image-right')) {
+      if (node.classList.contains(classes.right)) {
         return 'right';
       }
     }
@@ -50,6 +51,8 @@
   tinymce.PluginManager.add('imgalign', function(editor, url) {
     // Register removeformat, icons, fix Firefox quirk with images.
     editor.on('PreInit', function () {
+      // Register align classes as option in editor.
+      editor.options.register('image_align_classes', { processor: 'object' });
       // Let the "removeformats" button also remove image alignment and styles.
       let imgFormatRemove = {
         selector: 'img',
@@ -95,17 +98,11 @@
       },
       onItemAction: function (api, value) {
         let img = editor.selection.getNode();
-        if (img.classList.contains('image-left')) {
-          img.classList.remove('image-left');
-        }
-        if (img.classList.contains('image-right')) {
-          img.classList.remove('image-right');
-        }
-        if (img.classList.contains('image-center')) {
-          img.classList.remove('image-center');
-        }
+        let classes = editor.options.get('image_align_classes');
+        // First clean up.
+        img.classList.remove(classes.left, classes.center, classes.right);
         if (value !== 'none') {
-          img.classList.add('image-' + value);
+          img.classList.add(classes[value]);
         }
         editor.nodeChanged();
         // This fixes a side effect of the workaround for Firefox.

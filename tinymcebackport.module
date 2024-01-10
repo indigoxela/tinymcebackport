@@ -83,6 +83,14 @@ function _tinymcebackport_get_default_options($format) {
     'toolbar' => 'bold italic blockquote styles bullist numlist alignleft aligncenter alignright link unlink image removeformat',
   );
 
+  // Not a built-in option, but a custom one for the imgalign plugin, which also
+  // takes care of registering it.
+  $options['image_align_classes'] = array(
+    'left' => 'image-left',
+    'center' => 'image-center',
+    'right' => 'image-right',
+  );
+
   $path = base_path() . drupal_get_path('module', 'tinymcebackport');
   $options['content_css'] = array(
     $path . '/css/tinymcebackport-content.css',

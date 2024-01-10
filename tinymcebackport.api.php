@@ -64,6 +64,15 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     ),
   );
 
+  // Custom CSS classes for image alignment. Defaults to image-left,
+  // image-center, image-right. But you can override.
+  // This does NOT provide the CSS for images, only sets classes.
+  $options['image_align_classes'] = array(
+    'left' => 'my-left',
+    'center' => 'my-center',
+    'right' => 'my-right',
+  );
+
   // Based on user ID or role. Same text format, different setup.
   global $user;
   if (!$user->uid) {
