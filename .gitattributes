@@ -1,0 +1,2 @@
+# PHP syntax highlighting for this extension.
+*.module linguist-language=php
