@@ -98,7 +98,7 @@ function _tinymcebackport_get_default_options($format) {
   $options['external_plugins'] = array(
     'imgalign' => $path . '/plugins/imgalign/plugin.js',
   );
-  if (module_exists('imce')) {
+  if (module_exists('imce') && imce_access()) {
     $options['external_plugins']['imce'] = $path . '/plugins/imce/plugin.js';
     $options['plugins'] .= ' imce';
     $options['imceUrl'] = base_path() . 'imce?app=tinymce|sendto@tinymceImceResponseHandler';
