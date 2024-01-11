@@ -29,6 +29,7 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     // @endcode
     $options['plugins'] .= ' table';
     // Overhaul toolbar.
+    // @see https://www.tiny.cloud/docs/tinymce/latest/available-toolbar-buttons/
     $options['toolbar'] = 'undo redo | styles | bold italic bullist numlist link unlink';
     // Add the menubar above toolbar.
     $options['menubar'] = TRUE;
