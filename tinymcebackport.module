@@ -77,6 +77,7 @@ function _tinymcebackport_get_default_options($format) {
     'convert_urls' => FALSE,
     'paste_data_images' => FALSE,
     'images_file_types' => 'jpeg,jpg,png,gif,webp',
+    'file_picker_types' => 'file image',
     'min_height' => 300,
     'menubar' => FALSE,
     'plugins' => 'lists link image autoresize imgalign',
