@@ -33,6 +33,14 @@ tinymce.PluginManager.add('imce', function(editor, url) {
         else if (meta.filetype == 'file') {
           callback(event.data.url, { text: event.data.name });
         }
+        else if (meta.filetype == 'media') {
+          let dimensions = {};
+          if (typeof event.data.width !== 'undefined') {
+            dimensions.width = event.data.width;
+            dimensions.height = event.data.height;
+          }
+          callback(event.data.url, dimensions);
+        }
         // Job done, remove listener.
         controller.abort();
       }, { signal: controller.signal }, false);
@@ -69,6 +77,11 @@ function tinymceImceResponseHandler (file, win) {
   if (imageTypes.includes(extension)) {
     result.width = file.width + '';
     result.height = file.height + '';
+  }
+  let videoTypes = ['mp4', 'webm'];
+  if (videoTypes.includes(extension)) {
+    result.width = '600';
+    result.height = '360';
   }
   window.parent.postMessage(result, window.location.origin);
 

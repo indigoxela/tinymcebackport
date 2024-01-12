@@ -76,6 +76,12 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     'right' => 'my-right',
   );
 
+  // Enable media, video and audio.
+  // @see https://www.tiny.cloud/docs/tinymce/latest/media/
+  $options['plugins'] .= ' media';
+  // Enable IMCE as file picker also for media.
+  $options['file_picker_types'] = 'file image media';
+
   // Based on user ID or role. Same text format, different setup.
   global $user;
   if (!$user->uid) {
