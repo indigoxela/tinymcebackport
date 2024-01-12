@@ -22,7 +22,7 @@
           if (enabledFormats.includes(currentVal)) {
             tinymce.init(options);
           }
-          $formatToggle.on('change', function (e) {
+          $formatToggle.bind('change', function (e) {
             currentVal = $(this).val();
             if (enabledFormats.includes(currentVal)) {
               // TinyMCE takes care to not attach multiple times.
