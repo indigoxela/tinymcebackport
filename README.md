@@ -16,7 +16,7 @@ basic examples.
 ## Installation
 
 - Install this module using the
-  [tar.gz release](https://github.com/indigoxela/tinymcebackport/releases/download/7.x-1.0/tinymcebackport-7.x-1.0.tar.gz)
+  [tar.gz release](https://github.com/indigoxela/tinymcebackport/releases/download/7.x-1.1/tinymcebackport-7.x-1.1.tar.gz)
   (or download a dev snapshot for testing)
 - Disable CKEditor 4 on profiles for text formats on admin/config/content/ckeditor
 
