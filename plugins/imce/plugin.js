@@ -75,8 +75,11 @@ function tinymceImceResponseHandler (file, win) {
     name: file.name
   }
   if (imageTypes.includes(extension)) {
-    result.width = file.width + '';
-    result.height = file.height + '';
+    // IMCE fails to provide dimensions for webp, TinyMCE takes care of them.
+    if (result.width) {
+      result.width = file.width + '';
+      result.height = file.height + '';
+    }
   }
   let videoTypes = ['mp4', 'webm'];
   if (videoTypes.includes(extension)) {
