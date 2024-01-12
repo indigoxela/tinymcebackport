@@ -1,6 +1,5 @@
 name        = TinyMCE backport
 description = "TinyMCE 6.x as WYSIWYG editor for some text formats. No admin interface, customize via API."
 core        = 7.x
-version     = "7.x-1.1"
 
 stylesheets[all][] = css/tinymcebackport-content.css
