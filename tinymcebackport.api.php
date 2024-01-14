@@ -76,7 +76,7 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     'right' => 'my-right',
   );
 
-  // Enable media, video and audio.
+  // Enable media - video, audio and iframe (!).
   // @see https://www.tiny.cloud/docs/tinymce/latest/media/
   $options['plugins'] .= ' media';
   // Enable IMCE as file picker also for media.
