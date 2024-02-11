@@ -20,7 +20,7 @@
           if (event.origin !== window.location.origin) {
             return;
           }
-          if (meta.filetype == 'image') {
+          if (meta.filetype === 'image') {
             if (!imageTypes.includes(event.data.ext)) {
               // Can't show a message as we're still in a dialog, message would
               // be below.
@@ -31,10 +31,10 @@
               height: event.data.height
             });
           }
-          else if (meta.filetype == 'file') {
+          else if (meta.filetype === 'file') {
             callback(event.data.url, { text: event.data.name });
           }
-          else if (meta.filetype == 'media') {
+          else if (meta.filetype === 'media') {
             let dimensions = {};
             if (typeof event.data.width !== 'undefined') {
               dimensions.width = event.data.width;
@@ -54,7 +54,7 @@
             controller.abort();
           }
         });
-      }
+      };
       editor.options.set('file_picker_callback', imceFilePicker);
     });
   });
@@ -77,7 +77,7 @@
       url: file.url,
       ext: extension,
       name: file.name
-    }
+    };
     if (imageTypes.includes(extension)) {
       // IMCE fails to provide dimensions for webp, TinyMCE takes care of them.
       if (result.width) {
@@ -93,6 +93,6 @@
     window.parent.postMessage(result, window.location.origin);
 
     editor.windowManager.close();
-  }
+  };
 
 })();

@@ -7,17 +7,18 @@
   'use strict';
 
   // Custom icons to register later.
-  const icons = {};
-  icons.floatnone = '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><path d="m1 1h9v10h-9z" stroke-linecap="square"/><path d="m13 11h7"/><path d="m0 16h20"/></g></svg>';
-  icons.aligncenter = '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="10" height="7" stroke-linecap="round"/><path d="m0 16h20"/><path d="m0 1h20"/></g></svg>';
-  icons.floatleft = '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="1" width="9" height="10" stroke-linecap="round"/><g><path d="m13 11h7"/><path d="m0 16h20"/><path d="m13 1h7"/><path d="m13 6h7"/></g></g></svg>';
-  icons.floatright = '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="1" width="9" height="10" stroke-linecap="round"/><g><path d="m7 11h-7"/><path d="m0 16h20"/><path d="m7 1h-7"/><path d="m7 6h-7"/></g></g></svg>';
+  const icons = {
+    floatnone: '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><path d="m1 1h9v10h-9z" stroke-linecap="square"/><path d="m13 11h7"/><path d="m0 16h20"/></g></svg>',
+    aligncenter: '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="10" height="7" stroke-linecap="round"/><path d="m0 16h20"/><path d="m0 1h20"/></g></svg>',
+    floatleft: '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="1" width="9" height="10" stroke-linecap="round"/><g><path d="m13 11h7"/><path d="m0 16h20"/><path d="m13 1h7"/><path d="m13 6h7"/></g></g></svg>',
+    floatright: '<svg width="20" height="17" version="1.1" viewBox="0 0 20 17" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="1" width="9" height="10" stroke-linecap="round"/><g><path d="m7 11h-7"/><path d="m0 16h20"/><path d="m7 1h-7"/><path d="m7 6h-7"/></g></g></svg>',
+  };
 
   /**
    * Check if this node is an image to handle.
    */
   const isRegularImg = function (node) {
-    if (node.nodeName != 'IMG') {
+    if (node.nodeName !== 'IMG') {
       return false;
     }
     if (node.hasAttribute('data-mce-object') || node.hasAttribute('data-mce-placeholder')) {
@@ -27,7 +28,7 @@
       return false;
     }
     return true;
-  }
+  };
 
   /**
    * Get current image alignment.
@@ -46,7 +47,7 @@
       }
     }
     return 'none';
-  }
+  };
 
   tinymce.PluginManager.add('imgalign', function(editor, url) {
     // Register removeformat, icons, fix Firefox quirk with images.
@@ -57,7 +58,7 @@
       let imgFormatRemove = {
         selector: 'img',
         attributes: ['style', 'class']
-      }
+      };
       editor.formatter.get('removeformat').push(imgFormatRemove);
 
       for (let name in icons) {
@@ -66,7 +67,7 @@
       // Firefox and floated images. This has a side effect, but is crucial to
       // be able to delete the selected image by keyboard.
       editor.on('ObjectSelected', function (obj) {
-        if (obj.target.nodeName != 'IMG') {
+        if (obj.target.nodeName !== 'IMG') {
           return;
         }
         editor.selection.select(obj.target);
@@ -110,10 +111,10 @@
       },
       select: function (value) {
         let align = getImageAlign(editor.selection.getNode());
-        if (!align && value == 'none') {
+        if (!align && value === 'none') {
           return true;
         }
-        return align == value;
+        return align === value;
       },
       fetch: function (callback) {
         const items = [
