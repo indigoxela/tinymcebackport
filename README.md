@@ -10,8 +10,7 @@ The TinyMCE JavaScript library ships with this module, no need for extra
 downloads nor the libraries module.
 
 Note that there's absolutely *no admin interface*. All adaptions have to be
-done via API in code in a custom module. See tinymcebackport.api.php for some
-basic examples.
+done via API in code in a custom module.
 
 ## Installation
 
@@ -32,9 +31,23 @@ Provides a plugin for image alignment based on CSS classes.
 
 ## Maintenance
 
-Currently this is more like a proof of concept module. Fully functional, but
-without any admin UI (the maintainer doesn't need any ;-) ).
-Forking is possible – just go for it.
+This module will receive updates as necessary, for example to update the
+TinyMCE library, but there won't be any addtional features. Notably no
+admin interface will get added.
+
+So if you need something totally different, just fork it. ;-)
+
+## Customize via API
+
+Very likely you'll have to implement
+hook_tinymcebackport_enabled_formats_alter() to change the filter formats,
+the editor's attached to. Unless you only need the editor for the
+filtered_html format, which is the default.
+
+If you want to change toolbar buttons or enable/disable plugins, you'll have to
+implement hook_tinymcebackport_options_alter().
+
+The file tinymcebackport.api.php contains examples for both hooks.
 
 ## Credits
 
