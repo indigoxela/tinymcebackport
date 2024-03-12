@@ -11,6 +11,10 @@
               continue;
             }
           }
+          // Additional attach, may be triggered by AJAX fields on the page.
+          if (tinymce.get(myid) !== null) {
+            continue;
+          }
 
           const enabledFormats = settings.tinymcebackport[myid].enabled_formats;
           const $formatToggle = $('#' + settings.tinymcebackport[myid].idSelector + ' select');
@@ -24,7 +28,6 @@
           $formatToggle.bind('change', function (e) {
             let newVal = $formatToggle.val();
             if (enabledFormats.includes(newVal)) {
-              // TinyMCE takes care to not attach multiple times.
               tinymce.init(options);
             }
             else {
@@ -35,11 +38,20 @@
       }
     },
     detach: function (context, settings, trigger) {
-      // AJAX on a form runs detach and attach on any element on that page, but
-      // we don't have the id of the current editor. Removing all editors is
-      // weird and causes visual jumping. Don't do it for now.
       if (trigger === 'serialize') {
         tinymce.triggerSave();
+      }
+      if (trigger === 'unload' || trigger === 'move') {
+        let editorInstances = tinymce.get();
+        for (let i = 0; i < editorInstances.length; i++) {
+          let itemSelector = '#' + editorInstances[i].id;
+          let isMultifield = $(itemSelector).parents('.field-multiple-table').length;
+          // We only detach editors inside multivalue field wrappers to prevent
+          // unnecessary visual jumping caused by any AJAX field on the page.
+          if (isMultifield) {
+            tinymce.remove(itemSelector);
+          }
+        }
       }
     }
   };
