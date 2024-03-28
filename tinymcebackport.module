@@ -12,7 +12,7 @@ function tinymcebackport_library() {
   $libraries['bp.tinymce'] = array(
     'title' => 'TinyMCE',
     'website' => 'https://www.tiny.cloud/',
-    'version' => '6.8.3',
+    'version' => '7.0.0',
     'js' => array(
       $lib_path => array('group' => JS_LIBRARY, 'preprocess' => FALSE),
     ),
@@ -71,6 +71,7 @@ function _tinymcebackport_get_default_options($format) {
   $options = array(
     'branding' => FALSE,
     'promotion' => FALSE,
+    'license_key' => 'gpl',
     'language' => $language->language,
     'browser_spellcheck' => TRUE,
     'entity_encoding' => 'raw',

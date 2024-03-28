@@ -25,7 +25,7 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
     // accordion advlist anchor autolink autoresize autosave charmap code
     // codesample directionality emoticons fullscreen help image importcss
     // insertdatetime link lists media nonbreaking pagebreak preview quickbars
-    // save searchreplace table template visualblocks visualchars wordcount
+    // save searchreplace table visualblocks visualchars wordcount
     // @endcode
     $options['plugins'] .= ' table';
     // Overhaul toolbar.
@@ -81,6 +81,19 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
   $options['plugins'] .= ' media';
   // Enable IMCE as file picker also for media.
   $options['file_picker_types'] = 'file image media';
+  // Since TinyMCE 7 the "sandbox" attribute is automatically set for all
+  // iframe embeds for security reasons. There are two options to deal with
+  // that.
+  // @see https://www.tiny.cloud/docs/tinymce/latest/content-filtering/#sandbox-iframes
+  // NOT recommended: disable.
+  $options['sandbox_iframes'] = FALSE;
+  // Recommended: provide an allowlist of domains, override defaults, if you
+  // need other domains, than set by default.
+  // @see https://www.tiny.cloud/docs/tinymce/latest/content-filtering/#sandbox-iframes-exclusions
+  $options['sandbox_iframes_exclusions'] = array(
+    'openstreetmap.org',
+    'archive.org',
+  );
 
   // Based on user ID or role. Same text format, different setup.
   global $user;

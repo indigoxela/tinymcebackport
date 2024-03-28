@@ -51,13 +51,16 @@ The file tinymcebackport.api.php contains examples for both hooks.
 
 ## Credits
 
-Bundles the versatile [TinyMCE](https://www.tiny.cloud/) JavaScript library
-(MIT licensed), maintained with <3 by Tiny Technologies Inc. The editor has
-been around for almost two decades and is one of the most used Open Source
-JavaScript based WYSIWYG editors, integrated in many projects.
+Bundles the versatile [TinyMCE](https://www.tiny.cloud/) JavaScript library,
+maintained with <3 by Ephox Corporation DBA Tiny Technologies, Inc. Licensed
+under the terms of GNU General Public License Version 2 or later beginning with
+its version 7.0 (used to be MIT with version 6).
 
-Based on work done for the [Backdrop CMS](https://backdropcms.org/)
-TinyMCE integration module.
+The editor has been around for almost two decades and is one of the most used
+Open Source JavaScript based WYSIWYG editors, integrated in many projects.
+
+Based on work done for the
+[Backdrop CMS TinyMCE integration module](https://backdropcms.org/project/tinymce)
 
 ## License
 
