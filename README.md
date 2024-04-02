@@ -22,9 +22,9 @@ done via API in code in a custom module.
 If *filtered_html* is the text format you need the editor for, this module
 should already do its job at that point.
 
-If IMCE is installed, the image plugin will use that for picking inline
-images, the link plugin for picking file links. A small "browse" button will
-appear in the dialogs.
+If [IMCE](https://www.drupal.org/project/imce) is installed, the image plugin
+will use that for picking inline images, the link plugin for picking file links.
+A small "browse" button will appear in the dialogs.
 Note that IMCE is no dependency.
 
 Provides a plugin for image alignment based on CSS classes.
