@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Experiment to provide a recent TinyMCE for D7.
+ * Drupal 7 module that provides integration with a recent TinyMCE editor.
  */
 
 /**
