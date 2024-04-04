@@ -80,7 +80,7 @@
     };
     if (imageTypes.includes(extension)) {
       // IMCE fails to provide dimensions for webp, TinyMCE takes care of them.
-      if (result.width) {
+      if (file.width) {
         result.width = file.width + '';
         result.height = file.height + '';
       }
