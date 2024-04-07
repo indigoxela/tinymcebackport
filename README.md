@@ -27,6 +27,9 @@ will use that for picking inline images, the link plugin for picking file links.
 A small "browse" button will appear in the dialogs.
 Note that IMCE is no dependency.
 
+If IMCE isn't installed, but the Media module is, there's some
+integration with that to pick files.
+
 Provides a plugin for image alignment based on CSS classes.
 
 ## Maintenance
