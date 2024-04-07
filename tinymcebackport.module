@@ -21,6 +21,18 @@ function tinymcebackport_library() {
 }
 
 /**
+ * Implements hook_library_alter().
+ */
+function tinymcebackport_library_alter(&$libraries, $module) {
+  if ($module == 'media') {
+    // Override a method from Drupal.media.browser, which breaks our
+    // media integration.
+    $path = drupal_get_path('module', 'tinymcebackport') . '/js/tinymce-drupalmedia.js';
+    $libraries['media_browser_page']['js'][$path] = array('group' => 0);
+  }
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function tinymcebackport_element_info_alter(&$types) {
@@ -105,6 +117,22 @@ function _tinymcebackport_get_default_options($format) {
     $options['plugins'] .= ' imce';
     $options['imceUrl'] = base_path() . 'imce?app=tinymce|sendto@tinymceImceResponseHandler';
   }
+  // Rudimentary Media module support, but only if IMCE isn't available.
+  elseif (module_exists('media') && user_access('access media browser')) {
+    $options['external_plugins']['drupalmedia'] = $path . '/plugins/drupalmedia/plugin.js';
+    $options['plugins'] .= ' drupalmedia';
+    $options['mediaBrowseUrl'] = url('media/browser', array(
+      'query' => array(
+        'render' => 'media-popup',
+        // Get rid of upload plugin, which works - but with awkward UX.
+        'enabledPlugins' => array(
+          'media_default--media_browser_my_files',
+          'media_default--media_browser_1',
+        ),
+      ),
+    ));
+  }
+
   $options['formats'] = _tinymcebackport_get_format_settings();
 
   // Allow modules to modify the options.
