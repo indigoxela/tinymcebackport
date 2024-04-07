@@ -24,7 +24,6 @@
         name: file.filename,
         alt: file.alt,
         type: file.type,
-        ext: file.filename.toLowerCase().split('.').pop()
       };
       if (file.width && file.height) {
         result.width = file.width + '';
