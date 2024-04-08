@@ -37,7 +37,7 @@
           controller.abort();
         }, { signal: controller.signal }, false);
 
-        // Open a TinyMCE dialog with IMCE.
+        // Open a TinyMCE dialog with media browser.
         editor.windowManager.openUrl({
           title: 'Media browser',
           url: editor.options.get('mediaBrowseUrl'),
