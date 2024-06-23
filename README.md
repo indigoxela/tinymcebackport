@@ -32,10 +32,24 @@ integration with that to pick files.
 
 Provides a plugin for image alignment based on CSS classes.
 
+## Updating
+
+Unfortunately, there's no automatic way to inform you about available
+updates for this module via Drupal. Neither can you update it via Drupal admin UI.
+
+You have to download the [tar.gz](https://github.com/indigoxela/tinymcebackport/releases/latest),
+unpack, and upload via FTP (unless you have SSH access to your webspace).
+
+GitHub can notify you about updates, if you subscribe to this repository. But
+that requires a GitHub account.
+One possible alternative is the repository RSS feed
+`https://github.com/indigoxela/tinymcebackport/tags.atom`, but that's not very
+convenient, either.
+
 ## Maintenance
 
-This module will receive updates as necessary, for example to update the
-TinyMCE library, but there won't be any addtional features. Notably no
+This module will receive updates as necessary, for example to keep the TinyMCE
+library up to date, but there won't be any addtional features. Notably no
 admin interface will get added.
 
 So if you need something totally different, just fork it. ;-)
@@ -43,14 +57,17 @@ So if you need something totally different, just fork it. ;-)
 ## Customize via API
 
 Very likely you'll have to implement
-hook_tinymcebackport_enabled_formats_alter() to change the filter formats,
+`hook_tinymcebackport_enabled_formats_alter()` to change the filter formats,
 the editor's attached to. Unless you only need the editor for the
 filtered_html format, which is the default.
 
 If you want to change toolbar buttons or enable/disable plugins, you'll have to
-implement hook_tinymcebackport_options_alter().
+implement `hook_tinymcebackport_options_alter()`.
 
 The file tinymcebackport.api.php contains examples for both hooks.
+
+There's also an example module in
+[this issue comment](https://github.com/indigoxela/tinymcebackport/issues/3#issuecomment-2060572289).
 
 ## Credits
 
