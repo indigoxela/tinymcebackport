@@ -58,15 +58,15 @@ function _tinymcebackport_pre_render_text_format(array $element) {
   $js_path = drupal_get_path('module', 'tinymcebackport') . '/js/tinymcebackport.js';
   $element['#attached']['js'][$js_path] = array();
 
+  $enabled_formats = _tinymcebackport_get_enabled_formats();
   $js_settings = array(
-    'tinymcebackport' => array(
-      $element['value']['#id'] => array(
-        'idSelector' => $element['format']['#id'],
-        'options' => _tinymcebackport_get_default_options($element['#format']),
-        'enabled_formats' => _tinymcebackport_get_enabled_formats(),
-      ),
-    ),
+    'tinymcebackport' => array(),
   );
+  foreach ($enabled_formats as $enabled_format) {
+    $js_settings['tinymcebackport'][$enabled_format] = array(
+      'options' => _tinymcebackport_get_default_options($enabled_format),
+    );
+  }
   $element['#attached']['js'][] = array(
     'data' => $js_settings,
     'type' => 'setting',

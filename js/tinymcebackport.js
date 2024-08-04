@@ -4,37 +4,39 @@
   Drupal.behaviors.tinymceBackport = {
     attach: function (context, settings) {
       if (settings.tinymcebackport) {
-        for (const myid in settings.tinymcebackport) {
-          if (settings.ckeditor && typeof settings.ckeditor.elements !== 'undefined') {
-            if (settings.ckeditor.elements.hasOwnProperty(myid)) {
-              console.log('CKEditor already attached, not attaching TinyMCE');
-              continue;
-            }
+        if (settings.ckeditor && typeof settings.ckeditor.input_formats !== 'undefined') {
+          if (Object.keys(settings.ckeditor.input_formats).length) {
+            // Toggling won't work as CKE doesn't play nicely then.
+            console.warn('CKEditor already attached to formats, not attaching TinyMCE');
+            return;
           }
-          // Additional attach, may be triggered by AJAX fields on the page.
-          if (tinymce.get(myid) !== null) {
-            continue;
-          }
-
-          const enabledFormats = settings.tinymcebackport[myid].enabled_formats;
-          const $formatToggle = $('#' + settings.tinymcebackport[myid].idSelector + ' select');
-          const options = settings.tinymcebackport[myid].options;
-          options.selector = '#' + myid;
-          let currentVal = $formatToggle.val();
-
-          if (enabledFormats.includes(currentVal)) {
+        }
+        $('.text-format-wrapper').once('tinymce-init-textarea', function() {
+          const textareaId = $(this).find('textarea:not(.text-summary)').attr('id');
+          let $formatToggle = $(this).find('select.filter-list');
+          let format = $formatToggle.val();
+          if (format && typeof settings.tinymcebackport[format] !== 'undefined') {
+            let options = settings.tinymcebackport[format].options;
+            options.selector = '#' + textareaId;
             tinymce.init(options);
           }
           $formatToggle.bind('change', function (e) {
             let newVal = $formatToggle.val();
-            if (enabledFormats.includes(newVal)) {
-              tinymce.init(options);
+            if (typeof settings.tinymcebackport[newVal] !== 'undefined') {
+              let newOptions = settings.tinymcebackport[newVal].options;
+              newOptions.selector = '#' + textareaId;
+              let activeEditor = tinymce.get(textareaId);
+              if (activeEditor) {
+                tinymce.triggerSave();
+                activeEditor.remove();
+              }
+              tinymce.init(newOptions);
             }
             else {
-              tinymce.remove(options.selector);
+              tinymce.remove('#' + textareaId);
             }
           });
-        }
+        });
       }
     },
     detach: function (context, settings, trigger) {
@@ -50,6 +52,15 @@
           // unnecessary visual jumping caused by any AJAX field on the page.
           if (isMultifield) {
             tinymce.remove(itemSelector);
+            if (trigger === 'move') {
+              let $formatToggle = $(itemSelector).parents('.text-format-wrapper').find('select.filter-list');
+              let format = $formatToggle.val();
+              if (format && typeof settings.tinymcebackport[format] !== 'undefined') {
+                let options = settings.tinymcebackport[format].options;
+                options.selector = itemSelector;
+                tinymce.init(options);
+              }
+            }
           }
         }
       }
