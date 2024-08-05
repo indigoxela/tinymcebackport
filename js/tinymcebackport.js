@@ -5,10 +5,18 @@
     attach: function (context, settings) {
       if (settings.tinymcebackport) {
         if (settings.ckeditor && typeof settings.ckeditor.input_formats !== 'undefined') {
-          if (Object.keys(settings.ckeditor.input_formats).length) {
-            // Toggling won't work as CKE doesn't play nicely then.
-            console.warn('CKEditor already attached to formats, not attaching TinyMCE');
-            return;
+          let ckeFormats = Object.keys(settings.ckeditor.input_formats);
+          if (ckeFormats.length) {
+            let tinyFormats = Object.keys(settings.tinymcebackport);
+            if (tinyFormats.length) {
+              let intersection = tinyFormats.filter( function(item) {
+                return ckeFormats.includes(item);
+              });
+              if (intersection.length) {
+                console.warn('CKEditor is enabled for same formats as TinyMCE, so not attaching TinyMCE.');
+                return;
+              }
+            }
           }
         }
         $('.text-format-wrapper').once('tinymce-init-textarea', function() {
