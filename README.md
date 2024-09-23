@@ -6,7 +6,7 @@ Integrates the most recent and supported [TinyMCE](https://www.tiny.cloud/)
 It's a standalone module, unrelated to the existing, for a short while revived
  TinyMCE module, and also unrelated to the Wysiwyg module.
 
-The TinyMCE JavaScript library ships with this module, no need for extra
+The TinyMCE JavaScript library *ships with this module*, no need for extra
 downloads nor the libraries module.
 
 Note that there's absolutely *no admin interface*. All adaptions have to be
@@ -14,7 +14,7 @@ done via API in code in a custom module.
 
 ![Screenshot of a node form with the editor](https://raw.githubusercontent.com/indigoxela/tinymcebackport/7.x-1.x/screenshot-tinymce-drupal7.png)
 
-## Solving the Drupal 7 editor dilemma
+## Solving the Drupal 7 rich text editor dilemma
 
 Since the CKEditor 4 module has been deprecated in Drupal, the only way to get
 an up to date editor with Drupal 7 would be CKEditor 4 LTS - which has a
