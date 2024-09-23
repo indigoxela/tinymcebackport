@@ -12,6 +12,20 @@ downloads nor the libraries module.
 Note that there's absolutely *no admin interface*. All adaptions have to be
 done via API in code in a custom module.
 
+![Screenshot of a node form with the editor](https://raw.githubusercontent.com/indigoxela/tinymcebackport/7.x-1.x/screenshot-tinymce-drupal7.png)
+
+## Solving the Drupal 7 editor dilemma
+
+Since the CKEditor 4 module has been deprecated in Drupal, the only way to get
+an up to date editor with Drupal 7 would be CKEditor 4 LTS - which has a
+commercial license model with obscur pricing. Hardly appropriate for any site.
+
+Support for CKEditor 5 never landed in Drupal 7, and probably never will.
+And all editors supported by the Wysiwyg module are hopelessly outdated.
+
+This Drupal 7 module aims to close that gap. It also provides IMCE integration
+for file and image picking, and some rudimentary Media module support.
+
 ## Installation
 
 - Install this module using the
@@ -27,8 +41,8 @@ will use that for picking inline images, the link plugin for picking file links.
 A small "browse" button will appear in the dialogs.
 Note that IMCE is no dependency.
 
-If IMCE isn't installed, but the Media module is, there's some
-integration with that to pick files.
+If IMCE isn't installed, but the [Media module](https://www.drupal.org/project/media)
+is, there's some integration with that to pick files.
 
 Provides a plugin for image alignment based on CSS classes.
 
