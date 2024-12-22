@@ -68,6 +68,14 @@ admin interface will get added.
 
 So if you need something totally different, just fork it. ;-)
 
+### Will maintenance continue after January 5th 2025?
+
+Yes, it will. There's no reason to stop maintenance with official Drupal 7 EOL.
+The effort's minimal and the module's still useful.
+
+If you still use it and like it, leave a star here on GitHub to inform the maintainer,
+that you still appreciate it.
+
 ## Customize via API
 
 Very likely you'll have to implement
