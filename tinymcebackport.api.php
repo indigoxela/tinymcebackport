@@ -18,7 +18,7 @@ function hook_tinymcebackport_options_alter(array &$options, $format) {
   // Add styles applied to editor content.
   $options['content_css'][] = '/themes/bartik/css/style.css';
   // Only for this format.
-  if ($format == 'filterd_html') {
+  if ($format == 'filtered_html') {
     // Also load the table plugin.
     // Available plugins, that ship with this install:
     // @code
